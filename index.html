@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empório Barbearia</title>
+    <style>
+        /* Variáveis de Cores */
+        :root {
+            --bg-dark: #121212;
+            --bg-light-dark: #222222;
+            --accent-color: #b96b3e; /* Cor cobre/laranja escuro */
+            --accent-hover: #9c5831;
+            --text-light: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-serif: 'Georgia', serif;
+        }
+
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Header / Navbar */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: bold;
+            color: #d4af37; /* Dourado */
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-family: var(--font-serif);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Seções Gerais */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: var(--font-serif);
+            color: var(--accent-color);
+        }
+
+        /* Serviços */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background-color: var(--bg-light-dark);
+            padding: 40px 20px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #d4af37;
+        }
+
+        /* Formulário de Agendamento */
+        .booking-section {
+            background-color: var(--bg-light-dark);
+        }
+
+        .booking-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--bg-dark);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-light-dark);
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            .nav-links {
+                margin-top: 15px;
+            }
+            .nav-links a {
+                margin: 0 10px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Empório Barbearia</a>
+        <nav class="nav-links">
+            <a href="#inicio">Início</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#agendar">Agendar</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <h1>Onde o Clássico Encontra o Moderno</h1>
+        <p>Mais que um corte, uma experiência completa para o homem exigente. Descubra o verdadeiro cuidado no Empório Barbearia.</p>
+        <a href="#agendar" class="btn-primary">Agende seu Horário</a>
+    </section>
+
+    <section id="servicos" class="section">
+        <h2 class="section-title">Nossos Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Corte Clássico</h3>
+                <p>Corte tradicional na tesoura ou máquina, com acabamento impecável, finalização com pomada e styling.</p>
+            </div>
+            <div class="service-card">
+                <h3>Barba Design</h3>
+                <p>Terapia com toalha quente, alinhamento dos fios, hidratação e contorno perfeito com navalha.</p>
+            </div>
+            <div class="service-card">
+                <h3>Fade Progressivo</h3>
+                <p>Degradê perfeito, do zero ao volume no topo, técnicas modernas para um visual limpo e ousado.</p>
+            </div>
+            <div class="service-card">
+                <h3>Desenhos Artísticos</h3>
+                <p>Freestyle ou desenhos padronizados (riscos, teia, etc) feitos sob medida para destacar seu estilo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="agendar" class="section booking-section">
+        <h2 class="section-title">Sua Próxima Transformação</h2>
+        <p style="margin-bottom: 30px; color: var(--text-muted);">Reserve seu horário de forma rápida e prática.</p>
+        
+        <div class="booking-container">
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">WhatsApp</label>
+                    <input type="tel" id="telefone" placeholder="(DD) 99999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label for="servico">Serviço Desejado</label>
+                    <select id="servico" required>
+                        <option value="">Selecione um serviço...</option>
+                        <option value="corte">Corte de Cabelo</option>
+                        <option value="barba">Barba</option>
+                        <option value="combo">Corte + Barba (Combo)</option>
+                        <option value="quimica">Química / Luzes</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">Confirmar Agendamento</button>
+            </form>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <p><strong>Endereço:</strong> Rua Principal, 123 - Centro | <strong>WhatsApp:</strong> (11) 98765-4321</p>
+        <br>
+        <p>&copy; 2026 Empório Barbearia. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empório Barbearia</title>
+    <style>
+        /* Variáveis de Cores */
+        :root {
+            --bg-dark: #121212;
+            --bg-light-dark: #222222;
+            --accent-color: #b96b3e; /* Cor cobre/laranja escuro */
+            --accent-hover: #9c5831;
+            --text-light: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-serif: 'Georgia', serif;
+        }
+
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Header / Navbar */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: bold;
+            color: #d4af37; /* Dourado */
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-family: var(--font-serif);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Seções Gerais */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: var(--font-serif);
+            color: var(--accent-color);
+        }
+
+        /* Serviços */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background-color: var(--bg-light-dark);
+            padding: 40px 20px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #d4af37;
+        }
+
+        /* Formulário de Agendamento */
+        .booking-section {
+            background-color: var(--bg-light-dark);
+        }
+
+        .booking-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--bg-dark);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-light-dark);
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            .nav-links {
+                margin-top: 15px;
+            }
+            .nav-links a {
+                margin: 0 10px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Empório Barbearia</a>
+        <nav class="nav-links">
+            <a href="#inicio">Início</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#agendar">Agendar</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <h1>Onde o Clássico Encontra o Moderno</h1>
+        <p>Mais que um corte, uma experiência completa para o homem exigente. Descubra o verdadeiro cuidado no Empório Barbearia.</p>
+        <a href="#agendar" class="btn-primary">Agende seu Horário</a>
+    </section>
+
+    <section id="servicos" class="section">
+        <h2 class="section-title">Nossos Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Corte Clássico</h3>
+                <p>Corte tradicional na tesoura ou máquina, com acabamento impecável, finalização com pomada e styling.</p>
+            </div>
+            <div class="service-card">
+                <h3>Barba Design</h3>
+                <p>Terapia com toalha quente, alinhamento dos fios, hidratação e contorno perfeito com navalha.</p>
+            </div>
+            <div class="service-card">
+                <h3>Fade Progressivo</h3>
+                <p>Degradê perfeito, do zero ao volume no topo, técnicas modernas para um visual limpo e ousado.</p>
+            </div>
+            <div class="service-card">
+                <h3>Desenhos Artísticos</h3>
+                <p>Freestyle ou desenhos padronizados (riscos, teia, etc) feitos sob medida para destacar seu estilo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="agendar" class="section booking-section">
+        <h2 class="section-title">Sua Próxima Transformação</h2>
+        <p style="margin-bottom: 30px; color: var(--text-muted);">Reserve seu horário de forma rápida e prática.</p>
+        
+        <div class="booking-container">
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">WhatsApp</label>
+                    <input type="tel" id="telefone" placeholder="(DD) 99999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label for="servico">Serviço Desejado</label>
+                    <select id="servico" required>
+                        <option value="">Selecione um serviço...</option>
+                        <option value="corte">Corte de Cabelo</option>
+                        <option value="barba">Barba</option>
+                        <option value="combo">Corte + Barba (Combo)</option>
+                        <option value="quimica">Química / Luzes</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">Confirmar Agendamento</button>
+            </form>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <p><strong>Endereço:</strong> Rua Principal, 123 - Centro | <strong>WhatsApp:</strong> (11) 98765-4321</p>
+        <br>
+        <p>&copy; 2026 Empório Barbearia. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
